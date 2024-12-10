@@ -40,8 +40,8 @@ credentials = {
     "liz": "pass123"
 }
 
-meno = input ("Zadaj meno")
-heslo = input ("Zadaj Heslo")
+meno = input ("Zadaj meno: ")
+heslo = input ("Zadaj Heslo: ")
 if meno in credentials and credentials[meno] == heslo:
     print ("Vitaj ", meno)
 else:
@@ -58,25 +58,33 @@ if   cislo1 not in range(1,3):
     print("Nespravne cislo textu")
     quit()
 
-print (cislo)
-if cislo1 == 1:
-    text = TEXTS[0]
-if cislo1 == 2:
-    text = TEXTS[1]
-if cislo1 == 3:
-    text = TEXTS[2]
-print(text)
+# print (cislo)
+
+text = TEXTS[cislo1-1]
+# print(text)
 #texty = TEXTS.split(''',
 #''')
 #print(texty)
 slova = text.split()
 
 pocet_slov = len(slova)
-slova_zacinajuce_velkym = sum(1 for slovo in slova if slovo[0].isupper())
-slova_velkymi = sum(1 for slovo in slova if slovo.isupper())
-slova_malymi = sum(1 for slovo in slova if slovo.islower())
-cisel = sum(1 for slovo in slova if slovo.isdigit())
-sucet_cisel = sum(int(slovo) for slovo in slova if slovo.isdigit())
+slova_zacinajuce_velkym = 0
+slova_velkymi = 0
+slova_malymi = 0
+cisel = 0
+sucet_cisel = 0
+
+for slovo in slova:
+    if slovo[0].isupper():
+        slova_zacinajuce_velkym += 1
+    if slovo.isupper():  
+        slova_velkymi += 1
+        print (slovo)
+    if slovo.islower():  
+        slova_malymi += 1
+    if slovo.isdigit():  
+        cisel += 1
+        sucet_cisel += int(slovo) 
 
 print(f"Počet slov: {pocet_slov}")
 print(f"Počet slov začínajúcich veľkým písmenom: {slova_zacinajuce_velkym}")
@@ -85,7 +93,12 @@ print(f"Počet slov písaných malými písmenami: {slova_malymi}")
 print(f"Počet čísel: {cisel}")
 print(f"Súčet čísel: {sucet_cisel}")
 
-slova_ciste = [''.join(filter(str.isalpha, slovo)) for slovo in slova]
+neziaduce_znaky = "!;:,.?"  
+
+slova_ciste = [
+    ''.join([char for char in slovo if char not in neziaduce_znaky])
+    for slovo in slova
+]
 
 
 dlzky_slov = [len(slovo) for slovo in slova_ciste if slovo]
