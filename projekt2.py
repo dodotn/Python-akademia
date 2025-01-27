@@ -18,10 +18,8 @@ def generate_four_digit_number() -> str:
     """
    
     digits = random.sample(range(10), 4)
-    # Zabezpeč, že prvá cifra nie je 0
     if digits[0] == 0:
         digits[0], digits[1] = digits[1], digits[0]
-    # Spoj číslice do reťazca
     four_digit_number = ''.join(map(str, digits))
     return four_digit_number
 
@@ -54,7 +52,7 @@ def greeting() -> None:
     print("For every guess, I'll tell you:")
     print(" - Bulls: correct digits in the correct positions")
     print(" - Cows: correct digits in the wrong positions")
-    print("Type 'q' anytime to quit the game.")
+    print("Type 'q' anytime to quit the game. The nuber not starts with zero.")
     print("-" * 15)
 
 
@@ -79,6 +77,10 @@ def play_game() -> None:
         if len(guess) != 4 or not guess.isdigit():
             print("Please enter a valid 4-digit number.")
             continue
+        if guess[0] == '0' and len(guess) > 1:
+             print("Number must not start with zero.")
+             continue
+        
         if len(set(guess)) != 4:
             print("Please enter a number with 4 unique digits.")
             continue
